@@ -6,6 +6,7 @@
         <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties"/>
     </system-properties>
 
+    <url-stream-handler>urlfetch</url-stream-handler>
     <!--<class-loader-config>-->
         <!--<priority-specifier filename="demo.jar"/>-->
     <!--</class-loader-config>-->
