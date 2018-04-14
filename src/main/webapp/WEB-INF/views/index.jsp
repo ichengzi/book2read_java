@@ -43,7 +43,7 @@
     <%--</table>--%>
     <%--</form>--%>
     <%--</div>--%>
-    <h2>小说列表</h2>
+    <h2>列表</h2>
     <ul>
         <li><a href="/articleList?name=圣墟">圣墟</a></li>
         <li><a href="/articleList?name=凡人仙界篇">凡人仙界篇</a></li>
