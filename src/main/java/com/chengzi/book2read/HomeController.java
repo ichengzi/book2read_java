@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 //import org.springframework.web.bind.annotation.RestController;
 
 @Controller
@@ -49,24 +50,26 @@ public class HomeController {
     public String articleList(@RequestParam("name") String name, Model model) throws IOException {
 
         List<LinkModel> articles = new ArrayList<LinkModel>();
-        String html = basicGetRequest("https://www.piaotian.com/html/8/8253/index.html");
+        String url = "";
+        if(name.equals("圣墟"))
+            url = "https://www.piaotian.com/html/8/8253/index.html";
+        else
+            url = "https://www.piaotian.com/html/9/9102/index.html";
+
+        String html = basicGetRequest(url);
         Document doc = Jsoup.parse(html);
 
         Elements items = doc.select("body > div:nth-child(5) > div.mainbody > div.centent ul:nth-child(n+3) a");
-        int count =5;
-        if(items.size() <5)
+        int count =10;
+        if(items.size() <10)
             count = items.size();
         List<Element> items2 = items.subList(items.size()-count,items.size());
-
-
+        Collections.reverse(items2);
 
         for (Element item : items2) {
-//            String ss = item.attr("href");
-//            String text = item.ownText();
-//            articles.add(ss + "----" + text);
             LinkModel tmp =  new LinkModel();
             String id = item.attr("href").replaceAll(".html","");
-            tmp.setHref("/articleDetail?id="+id+"&title="+item.ownText());
+            tmp.setHref("/articleDetail?name="+name+"&id="+id+"&title="+item.ownText());
             tmp.setContent(item.ownText());
             articles.add(tmp);
         }
@@ -78,17 +81,24 @@ public class HomeController {
 
     @GetMapping("/articleDetail")
     public String articleDetail(@RequestParam("id") String id,
+                                @RequestParam("name") String name,
                                 @RequestParam("title") String title,
                                 Model model) throws IOException {
 
-        String html = basicGetRequest("https://www.piaotian.com/html/8/8253/" + id + ".html");
+        String url = "";
+        if(name.equals("圣墟"))
+            url= "https://www.piaotian.com/html/8/8253/" + id + ".html";
+        else
+            url = "https://www.piaotian.com/html/9/9102/" + id + ".html";
 
+
+        String html = basicGetRequest(url);
         String[] liststr = html.split("\r\n");
         String content = liststr[53].replaceAll("<br />","")
                 .replaceAll("&nbsp;&nbsp;&nbsp;&nbsp;", "\r\n");
         String[] paragraphs = content.split("\r\n");
 
-        System.out.println(String.join("\r\n",paragraphs));
+        //System.out.println(String.join("\r\n",paragraphs));
 
         model.addAttribute("title", title);
         model.addAttribute("paragraphs", paragraphs);

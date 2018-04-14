@@ -5,6 +5,15 @@
     border-radius: 7px;
     padding: 20px;
 }
+
+body {
+    padding-top: 50px;
+}
+
 p {
     font-size: 1.25em;
+}
+
+a:visited {
+    color: palevioletred
 }
