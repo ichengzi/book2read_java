@@ -56,7 +56,7 @@ public class HomeController {
         else
             url = "https://www.piaotian.com/html/9/9102/index.html";
 
-        String html = basicGetRequest(url);
+        String html = Helper.basicGetRequest(url);
         Document doc = Jsoup.parse(html);
 
         Elements items = doc.select("body > div:nth-child(5) > div.mainbody > div.centent ul:nth-child(n+3) a");
@@ -92,7 +92,7 @@ public class HomeController {
             url = "https://www.piaotian.com/html/9/9102/" + id + ".html";
 
 
-        String html = basicGetRequest(url);
+        String html = Helper.basicGetRequest(url);
         String[] liststr = html.split("\r\n");
         String content = liststr[53].replaceAll("<br />","")
                 .replaceAll("&nbsp;&nbsp;&nbsp;&nbsp;", "\r\n");
@@ -105,10 +105,4 @@ public class HomeController {
         return "articleDetail";
     }
 
-    private String basicGetRequest(String url) throws ClientProtocolException, IOException {
-        return Request.Get(url)
-                .execute()
-                .returnContent()
-                .asString();
-    }
 }

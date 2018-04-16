@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+    <cron>
+        <url>/CrawlBook?name=圣墟</url>
+        <!--<target>beta</target>-->
+        <description>爬取圣墟</description>
+        <schedule>every 10 mins</schedule>
+    </cron>
+    <cron>
+        <url>/CrawlBook?name=凡人仙界篇</url>
+        <!--<target>beta</target>-->
+        <description>爬取凡人仙界篇</description>
+        <schedule>every 10 mins</schedule>
+    </cron>
+</cronentries>
