@@ -97,8 +97,9 @@ public class HomeController {
         Query query = new Query(name);
         PreparedQuery preparedQuery = datastore.prepare(query);
         //List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withLimit(10));
-        List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withDefaults());
+        List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withLimit(10));
 
+        Collections.reverse(entities);
         log.info("entities count: "+entities.size());
 
         List<LinkModel> articles = new ArrayList<LinkModel>();
@@ -109,7 +110,6 @@ public class HomeController {
             tmp.setHref("/articleDetail2?name="+name+"&id="+id+"&title="+ title);
             tmp.setContent(title);
 
-            log.info(id);
             articles.add(tmp);
         }
 
