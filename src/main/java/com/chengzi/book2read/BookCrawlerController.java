@@ -1,7 +1,13 @@
 package com.chengzi.book2read;
 
-import com.google.cloud.Timestamp;
-import com.google.cloud.datastore.*;
+//import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+
+import com.google.appengine.api.datastore.*;
+import com.google.apphosting.api.ApiProxy;
+import com.google.auth.appengine.AppEngineCredentials;
+import com.google.auth.oauth2.GoogleCredentials;
+//import com.google.cloud.Timestamp;
+//import com.google.cloud.datastore.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,17 +20,21 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 // Imports the Google Cloud client library
 
-import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
+//import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 
 @RestController
 public class BookCrawlerController {
 
+    private static final Logger log = Logger.getLogger(HomeController.class.getName());
+
     @GetMapping("/CrawlBook")
-    public String CrawlBook(@RequestParam("name") String name) throws IOException {
+    public String CrawlBook(@RequestParam("name") String name) throws IOException, EntityNotFoundException {
 
         String url = "";
         if (name.equals("圣墟"))
@@ -43,17 +53,24 @@ public class BookCrawlerController {
         List<Element> items2 = items.subList(items.size() - count, items.size());
         Collections.reverse(items2);
 
-        // Instantiates a client
-        Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         int new_atricle_count = 0;
         for (Element item : items2) {
             String id = item.attr("href").replaceAll(".html", "");
             String title = item.ownText();
 
-            Key key = datastore.newKeyFactory().setKind(name).newKey(Long.parseLong(id));
-            Entity entity = datastore.get(key);
+            Key key = KeyFactory.createKey(name, Long.parseLong(id));
+            Entity entity;
+            try {
+                entity = datastore.get(key);
+            } catch (EntityNotFoundException e) {
+                entity = null;
+            }
             if (entity == null) {
+
+                entity = new Entity(key);
+
                 new_atricle_count += 1;
                 String urlDetail = "";
                 if (name.equals("圣墟"))
@@ -65,18 +82,20 @@ public class BookCrawlerController {
                 String content = liststr[53].replaceAll("<br />", "")
                         .replaceAll("&nbsp;&nbsp;&nbsp;&nbsp;", "\r\n");
 
+
+                Text tmp = new Text(content);
                 // Prepares the new entity
-                Entity article = Entity.newBuilder(key)
-                        .set("title", title)
-                        .set("content", content)
-                        .set("create_time", Timestamp.now())
-                        .set("data_lastchangetime", Timestamp.now())
-                        .build();
+                entity.setProperty("title", title);
+                entity.setProperty("content", tmp);
+                entity.setProperty("create_time", new Date());
+                entity.setProperty("data_lastchangetime", new Date());
 
                 // Saves the entity
-                datastore.put(article);
+                datastore.put(entity);
             }
         }
-        return Timestamp.now() + " new article " + new_atricle_count + " .";
+        String res = name + ", " + new Date() + ", Generate new article " + new_atricle_count + ".";
+        log.info(res);
+        return res;
     }
 }

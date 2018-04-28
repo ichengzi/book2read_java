@@ -15,6 +15,8 @@
  */
 package com.chengzi.book2read;
 
+//import com.google.cloud.datastore.Datastore;
+import com.google.appengine.api.datastore.*;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;
 import org.jsoup.Jsoup;
@@ -33,8 +35,13 @@ import java.util.List;
 import java.util.*;
 //import org.springframework.web.bind.annotation.RestController;
 
+import java.util.logging.Logger;
+
 @Controller
 public class HomeController {
+
+    private static final Logger log = Logger.getLogger(HomeController.class.getName());
+
     @GetMapping("/")
     public String index() {
         return "index";
@@ -57,6 +64,7 @@ public class HomeController {
             url = "https://www.piaotian.com/html/9/9102/index.html";
 
         String html = Helper.basicGetRequest(url);
+        //String html = Helper.DoGet2(url);
         Document doc = Jsoup.parse(html);
 
         Elements items = doc.select("body > div:nth-child(5) > div.mainbody > div.centent ul:nth-child(n+3) a");
@@ -71,6 +79,37 @@ public class HomeController {
             String id = item.attr("href").replaceAll(".html","");
             tmp.setHref("/articleDetail?name="+name+"&id="+id+"&title="+item.ownText());
             tmp.setContent(item.ownText());
+            articles.add(tmp);
+        }
+
+        model.addAttribute("name", name);
+        model.addAttribute("articles", articles);
+        return "articleList";
+    }
+
+    @GetMapping("/articleList2")
+    public String articleList2(@RequestParam("name") String name, Model model) throws IOException {
+
+        log.info(name);
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        //Query query = new Query(name).addSort("id",Query.SortDirection.DESCENDING);
+        Query query = new Query(name);
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        //List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withLimit(10));
+        List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withDefaults());
+
+        log.info("entities count: "+entities.size());
+
+        List<LinkModel> articles = new ArrayList<LinkModel>();
+        for (Entity item : entities) {
+            LinkModel tmp =  new LinkModel();
+            String id = Long.toString(item.getKey().getId());
+            String title = item.getProperty("title").toString();
+            tmp.setHref("/articleDetail2?name="+name+"&id="+id+"&title="+ title);
+            tmp.setContent(title);
+
+            log.info(id);
             articles.add(tmp);
         }
 
@@ -102,6 +141,33 @@ public class HomeController {
 
         model.addAttribute("title", title);
         model.addAttribute("paragraphs", paragraphs);
+        return "articleDetail";
+    }
+
+    @GetMapping("/articleDetail2")
+    public String articleDetail2(@RequestParam("id") String id,
+                                @RequestParam("name") String name,
+                                @RequestParam("title") String title,
+                                Model model) throws IOException, EntityNotFoundException {
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        Key key = KeyFactory.createKey(name,Long.parseLong(id));
+        Entity article;
+        try {
+            article = datastore.get(key);
+        } catch (EntityNotFoundException e) {
+            log.info(id+" not found.");
+            return "404";
+        }
+
+
+        Text text = (Text)article.getProperty("content");
+        String content = text.getValue();
+        String[] paragraphs = content.split("\r\n");
+        model.addAttribute("title", title);
+        model.addAttribute("paragraphs", paragraphs);
+
+        log.info(content);
         return "articleDetail";
     }
 
