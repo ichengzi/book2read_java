@@ -24,8 +24,8 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
-                <li><a href="/articleList?name=圣墟">圣墟</a></li>
-                <li><a href="/articleList?name=凡人仙界篇">凡人</a></li>
+                <li><a href="/articleList2?name=圣墟">圣墟</a></li>
+                <li><a href="/articleList2?name=凡人仙界篇">凡人</a></li>
             </ul>
         </div>
     </div>
@@ -47,6 +47,9 @@
     <ul>
         <li><a href="/articleList?name=圣墟">圣墟</a></li>
         <li><a href="/articleList?name=凡人仙界篇">凡人仙界篇</a></li>
+        <li></li>
+        <li><a href="/CrawlBook?name=圣墟">爬取圣墟</a></li>
+        <li><a href="/CrawlBook?name=凡人仙界篇">爬取凡人仙界篇</a></li>
         <li></li>
         <li><a href="/articleList2?name=圣墟">圣墟2</a></li>
         <li><a href="/articleList2?name=凡人仙界篇">凡人仙界篇2</a></li>

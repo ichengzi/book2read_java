@@ -1,0 +1,13 @@
+indexes:
+
+- kind: shengxu
+  ancestor: no
+  properties:
+  - name: __key__
+    direction: desc
+
+- kind: fanren
+  ancestor: no
+  properties:
+  - name: __key__
+    direction: desc

@@ -91,15 +91,21 @@ public class HomeController {
     public String articleList2(@RequestParam("name") String name, Model model) throws IOException {
 
         log.info(name);
+        String tablename = "";
+        if (name.equals("圣墟"))
+            tablename = "shengxu";
+        if (name.equals("凡人仙界篇"))
+            tablename = "fanren";
+
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        //Query query = new Query(name).addSort("id",Query.SortDirection.DESCENDING);
-        Query query = new Query(name);
+        Query query = new Query(tablename).addSort("__key__",Query.SortDirection.DESCENDING);
+        //Query query = new Query(name);
         PreparedQuery preparedQuery = datastore.prepare(query);
         //List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withLimit(10));
         List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withLimit(10));
 
-        Collections.reverse(entities);
+        //Collections.reverse(entities);
         log.info("entities count: "+entities.size());
 
         List<LinkModel> articles = new ArrayList<LinkModel>();
@@ -150,8 +156,14 @@ public class HomeController {
                                 @RequestParam("title") String title,
                                 Model model) throws IOException, EntityNotFoundException {
 
+        String tablename = "";
+        if (name.equals("圣墟"))
+            tablename = "shengxu";
+        if (name.equals("凡人仙界篇"))
+            tablename = "fanren";
+
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Key key = KeyFactory.createKey(name,Long.parseLong(id));
+        Key key = KeyFactory.createKey(tablename,Long.parseLong(id));
         Entity article;
         try {
             article = datastore.get(key);

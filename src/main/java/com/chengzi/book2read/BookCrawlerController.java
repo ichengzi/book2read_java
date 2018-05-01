@@ -60,7 +60,13 @@ public class BookCrawlerController {
             String id = item.attr("href").replaceAll(".html", "");
             String title = item.ownText();
 
-            Key key = KeyFactory.createKey(name, Long.parseLong(id));
+            String tablename = "";
+            if (name.equals("圣墟"))
+                tablename = "shengxu";
+            if (name.equals("凡人仙界篇"))
+                tablename = "fanren";
+
+            Key key = KeyFactory.createKey(tablename, Long.parseLong(id));
             Entity entity;
             try {
                 entity = datastore.get(key);
