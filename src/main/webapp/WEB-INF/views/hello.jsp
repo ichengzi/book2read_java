@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="theme-color" content="#6fa8dc" />
+    <meta name="theme-color" content="#333344" />
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Spring Boot</title>
 </head>
