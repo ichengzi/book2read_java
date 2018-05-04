@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Home</title>
+    <meta name="theme-color" content="#6fa8dc" />
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -45,14 +46,14 @@
     <%--</div>--%>
     <h2>列表</h2>
     <ul>
-        <li><a href="/articleList?name=圣墟">圣墟</a></li>
-        <li><a href="/articleList?name=凡人仙界篇">凡人仙界篇</a></li>
+        <li><a href="/articleList?name=圣墟" class="bigFont">圣墟</a></li>
+        <li><a href="/articleList?name=凡人仙界篇" class="bigFont">凡人仙界篇</a></li>
         <li></li>
-        <li><a href="/CrawlBook?name=圣墟">爬取圣墟</a></li>
-        <li><a href="/CrawlBook?name=凡人仙界篇">爬取凡人仙界篇</a></li>
+        <li><a href="/CrawlBook?name=圣墟" class="bigFont">爬取圣墟</a></li>
+        <li><a href="/CrawlBook?name=凡人仙界篇" class="bigFont">爬取凡人仙界篇</a></li>
         <li></li>
-        <li><a href="/articleList2?name=圣墟">圣墟2</a></li>
-        <li><a href="/articleList2?name=凡人仙界篇">凡人仙界篇2</a></li>
+        <li><a href="/articleList2?name=圣墟" class="bigFont">圣墟2</a></li>
+        <li><a href="/articleList2?name=凡人仙界篇" class="bigFont">凡人仙界篇2</a></li>
     </ul>
 
     <footer>

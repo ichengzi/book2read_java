@@ -17,3 +17,7 @@ p {
 a:visited {
     color: palevioletred
 }
+
+.bigFont {
+    font-size: 1.5em;
+}
