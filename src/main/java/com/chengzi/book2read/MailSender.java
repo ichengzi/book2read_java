@@ -35,7 +35,7 @@ public class MailSender {
 
         try {
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("chengzi1230@gmail.com", "book2read java"));
+            msg.setFrom(new InternetAddress("chengzi12130@gmail.com", "book2read java"));
             msg.addRecipient(Message.RecipientType.TO,
                     new InternetAddress("chengzi12130@gmail.com", "chengzi"));
             msg.setSubject(subject);
@@ -59,7 +59,7 @@ public class MailSender {
 
         try {
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("chengzi1230@gmail.com", "book2read java"));
+            msg.setFrom(new InternetAddress("chengzi12130@gmail.com", "book2read java"));
             msg.addRecipient(Message.RecipientType.TO,
                     new InternetAddress("chengzi12130@gmail.com", "chengzi"));
             msg.setSubject(subject);
