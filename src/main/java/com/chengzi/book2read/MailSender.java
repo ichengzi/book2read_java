@@ -69,7 +69,7 @@ public class MailSender {
 
             String[] paragraphs = content.split("\r\n");
             StringBuilder sb = new StringBuilder();
-            sb.append("<div style='font-size:1.15em'>");
+            sb.append("<div style='font-size:1.5em'>");
             sb.append("<h4>"+subject+"</h4>");
             for(String p: paragraphs){
                 sb.append("<p>");
