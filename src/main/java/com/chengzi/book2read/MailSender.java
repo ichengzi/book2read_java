@@ -66,7 +66,18 @@ public class MailSender {
             msg.setText(content);
 
             // [START multipart_example]
-            String htmlBody = "<div>"+content+"</div>";// ...
+
+            String[] paragraphs = content.split("\r\n");
+            StringBuilder sb = new StringBuilder();
+            sb.append("<div>");
+            sb.append("<h4>"+subject+"</h4>");
+            for(String p: paragraphs){
+                sb.append("<p>");
+                sb.append(p);
+                sb.append("</p>");
+            }
+            sb.append("</div>");
+            String htmlBody = sb.toString();// ...
             byte[] attachmentData = null;  // ...
             Multipart mp = new MimeMultipart();
 

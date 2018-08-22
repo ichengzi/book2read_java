@@ -100,7 +100,7 @@ public class BookCrawlerController {
                 datastore.put(entity);
 
                 MailSender sender = new MailSender();
-                sender.sendSimpleMail(title, content);
+                sender.sendMultipartMail(title, content);
             }
         }
         String res = name + ", " + new Date() + ", Generate new article " + new_atricle_count + ".";
