@@ -38,7 +38,8 @@ public class BookCrawlerController {
 
         String url = "";
         if (name.equals("圣墟"))
-            url = "https://www.piaotian.com/html/8/8253/index.html";
+            url = "https://www.biqiuge.com/book/4772/";
+            //url = "https://www.piaotian.com/html/8/8253/index.html";
         else if (name.equals("凡人仙界篇"))
             url = "https://www.piaotian.com/html/9/9102/index.html";
         else
@@ -46,18 +47,22 @@ public class BookCrawlerController {
 
         String html = Helper.basicGetRequest(url);
         Document doc = Jsoup.parse(html);
-        Elements items = doc.select("body > div:nth-child(5) > div.mainbody > div.centent ul:nth-child(n+3) a");
+        //Elements items = doc.select("body > div:nth-child(5) > div.mainbody > div.centent ul:nth-child(n+3) a");
+        Elements items = doc.select("body > div.listmain > dl > dd > a");
         int count = 10;
         if (items.size() < 10)
             count = items.size();
-        List<Element> items2 = items.subList(items.size() - count, items.size());
-        Collections.reverse(items2);
+        //List<Element> items2 = items.subList(items.size() - count, items.size());
+        List<Element> items2 = items.subList(0,6);
+        //Collections.reverse(items2);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         int new_atricle_count = 0;
         for (Element item : items2) {
-            String id = item.attr("href").replaceAll(".html", "");
+            String id = item.attr("href")
+                    .replaceAll(".html", "")
+                    .replaceAll("/book/4772/","");
             String title = item.ownText();
 
             String tablename = "";
@@ -80,7 +85,7 @@ public class BookCrawlerController {
                 new_atricle_count += 1;
                 String urlDetail = "";
                 if (name.equals("圣墟"))
-                    urlDetail = "https://www.piaotian.com/html/8/8253/" + id + ".html";
+                    urlDetail = "https://www.biqiuge.com/book/4772/" + id + ".html";
                 else
                     urlDetail = "https://www.piaotian.com/html/9/9102/" + id + ".html";
                 String htmlDetail = Helper.basicGetRequest(urlDetail);
