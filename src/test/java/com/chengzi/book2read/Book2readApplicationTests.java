@@ -14,8 +14,8 @@ public class Book2readApplicationTests {
 
 	@Test
 	public void contextLoads() throws IOException, EntityNotFoundException {
-        BookCrawlerController x = new BookCrawlerController();
-		x.CrawlBook("圣墟");
+//        BookCrawlerController x = new BookCrawlerController();
+//		x.CrawlBook("圣墟");
 	}
 
 }
