@@ -53,9 +53,8 @@ public class BookCrawlerController {
         int count = 10;
         if (items.size() < 10)
             count = items.size();
-        //List<Element> items2 = items.subList(items.size() - count, items.size());
-        List<Element> items2 = items.subList(0,6);
-        //Collections.reverse(items2);
+        List<Element> items2 = items.subList(items.size() - count, items.size());
+        Collections.reverse(items2);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
