@@ -11,6 +11,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ import java.util.logging.Logger;
 @RestController
 public class BookCrawlerController {
 
-    private static final Logger log = Logger.getLogger(HomeController.class.getName());
+    private static final Logger log = Logger.getLogger(BookCrawlerController.class.getName());
 
     @GetMapping("/CrawlBook")
     public String CrawlBook(@RequestParam("name") String name) throws IOException, EntityNotFoundException {
@@ -41,7 +42,7 @@ public class BookCrawlerController {
             url = "https://www.biqiuge.com/book/4772/";
             //url = "https://www.piaotian.com/html/8/8253/index.html";
         else if (name.equals("凡人仙界篇"))
-            url = "https://www.piaotian.com/html/9/9102/index.html";
+            url = "https://www.biqiuge.com/book/26182/";
         else
             return name + " is not support now!";
 
@@ -62,7 +63,8 @@ public class BookCrawlerController {
         for (Element item : items2) {
             String id = item.attr("href")
                     .replaceAll(".html", "")
-                    .replaceAll("/book/4772/","");
+                    .replaceAll("/book/4772/","")
+                    .replaceAll("/book/26182/","");
             String title = item.ownText();
 
             String tablename = "";
@@ -87,12 +89,25 @@ public class BookCrawlerController {
                 if (name.equals("圣墟"))
                     urlDetail = "https://www.biqiuge.com/book/4772/" + id + ".html";
                 else
-                    urlDetail = "https://www.piaotian.com/html/9/9102/" + id + ".html";
+                    urlDetail = "https://www.biqiuge.com/book/26182/" + id + ".html";
                 String htmlDetail = Helper.basicGetRequest(urlDetail);
-                String[] liststr = htmlDetail.split("\r\n");
-                String content = liststr[53].replaceAll("<br />", "")
-                        .replaceAll("&nbsp;&nbsp;&nbsp;&nbsp;", "\r\n");
 
+                Document docDetail = Jsoup.parse(htmlDetail);
+                docDetail.outputSettings().prettyPrint(false);
+                StringBuilder builder  = new StringBuilder();
+                List<TextNode> nodes = docDetail.selectFirst("#content").textNodes();
+                nodes = nodes.subList(0,nodes.size()-2);
+                for (TextNode node: nodes){
+                    builder.append(node.text()+"\r\n");
+                }
+
+//                String[] liststr = htmlDetail.split("\r\n");
+//                String content = liststr[53].replaceAll("<br />", "")
+//                        .replaceAll("&nbsp;&nbsp;&nbsp;&nbsp;", "\r\n");
+
+//                String content = builder.toString().replaceAll("<br />", "")
+//                        .replaceAll("&nbsp;&nbsp;&nbsp;&nbsp;", "\r\n");
+                String content = builder.toString();
 
                 Text tmp = new Text(content);
                 // Prepares the new entity
