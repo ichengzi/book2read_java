@@ -62,8 +62,8 @@ public class BookCrawlerController {
         for (Element item : items2) {
             String id = item.attr("href")
                     .replaceAll(".html", "")
-                    .replaceAll("/book/4772/","")
-                    .replaceAll("/book/26182/","");
+                    .replaceAll("/book/4772/", "")
+                    .replaceAll("/book/26182/", "");
             String title = item.ownText();
 
             String tablename = "";
@@ -93,11 +93,11 @@ public class BookCrawlerController {
 
                 Document docDetail = Jsoup.parse(htmlDetail);
                 docDetail.outputSettings().prettyPrint(false);
-                StringBuilder builder  = new StringBuilder();
+                StringBuilder builder = new StringBuilder();
                 List<TextNode> nodes = docDetail.selectFirst("#content").textNodes();
-                nodes = nodes.subList(0,nodes.size()-2);
-                for (TextNode node: nodes){
-                    builder.append(node.text()+"\r\n");
+                nodes = nodes.subList(0, nodes.size() - 2);
+                for (TextNode node : nodes) {
+                    builder.append(node.text() + "\r\n");
                 }
 
 //                String[] liststr = htmlDetail.split("\r\n");
@@ -119,7 +119,7 @@ public class BookCrawlerController {
                 datastore.put(entity);
 
                 MailSender sender = new MailSender();
-                sender.sendMultipartMail(name+" - "+ title, content);
+                sender.sendMultipartMail(name + " - " + title, content);
             }
         }
         String res = name + ", " + new Date() + ", Generate new article " + new_atricle_count + ".";
