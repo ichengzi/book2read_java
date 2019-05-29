@@ -99,7 +99,8 @@ public class HomeController {
 
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Query query = new Query(tablename).addSort("__key__",Query.SortDirection.DESCENDING);
+//        Query query = new Query(tablename).addSort("__key__",Query.SortDirection.DESCENDING);
+        Query query = new Query(tablename).addSort("create_time",Query.SortDirection.DESCENDING);
         //Query query = new Query(name);
         PreparedQuery preparedQuery = datastore.prepare(query);
         //List<Entity> entities = preparedQuery.asList(FetchOptions.Builder.withLimit(10));
