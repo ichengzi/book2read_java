@@ -13,6 +13,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,9 +34,11 @@ import java.util.logging.Logger;
 public class BookCrawlerController {
 
     private static final Logger log = Logger.getLogger(BookCrawlerController.class.getName());
+//    @Autowired
+//    DatastoreService datastore;
 
     @GetMapping("/CrawlBook")
-    public String CrawlBook(@RequestParam("name") String name) throws IOException, EntityNotFoundException {
+    public String CrawlBook(@RequestParam("name") String name) throws IOException {
 
         String url = "";
         if (name.equals("圣墟"))
