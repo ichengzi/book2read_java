@@ -163,7 +163,7 @@
                 <version>2.2.0</version>
                 <configuration>
                     <deploy.projectId>czbookjava</deploy.projectId>
-                    <deploy.version>0122</deploy.version>
+                    <deploy.version>22.fix</deploy.version>
                 </configuration>
             </plugin>
         </plugins>
