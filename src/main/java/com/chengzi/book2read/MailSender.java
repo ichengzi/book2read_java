@@ -1,29 +1,10 @@
 package com.chengzi.book2read;
 
-// [START simple_includes]
-import com.google.apphosting.api.ApiProxy;
-
-import java.io.IOException;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-// [END simple_includes]
-
-// [START multipart_includes]
-import java.io.InputStream;
-import java.io.ByteArrayInputStream;
+import javax.mail.*;
+import javax.mail.internet.*;
 import java.io.UnsupportedEncodingException;
+import java.util.Properties;
 import java.util.logging.Logger;
-import javax.activation.DataHandler;
-import javax.mail.Multipart;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
-// [END multipart_includes]
 
 public class MailSender {
     private static final Logger log = Logger.getLogger(MailSender.class.getName());
@@ -55,13 +36,11 @@ public class MailSender {
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 
-        String msgBody = content;
-
         try {
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("chengzi12130+spider@gmail.com", "book2read java"));
+            msg.setFrom(new InternetAddress("chengzi12130+spider@gmail.com", "cz book java spider"));
             msg.addRecipient(Message.RecipientType.TO,
-                    new InternetAddress("chengzi12130+spider@gmail.com", "chengzi"));
+                    new InternetAddress("chengzi12130+spider@gmail.com", "dear cz"));
             msg.setSubject(subject);
             msg.setText(content);
 
@@ -70,8 +49,8 @@ public class MailSender {
             String[] paragraphs = content.split("\r\n");
             StringBuilder sb = new StringBuilder();
             sb.append("<div style='font-size:1.5em'>");
-            sb.append("<h4>"+subject+"</h4>");
-            for(String p: paragraphs){
+            sb.append("<h4>" + subject + "</h4>");
+            for (String p : paragraphs) {
                 sb.append("<p>");
                 sb.append(p);
                 sb.append("</p>");
