@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.chengzi</groupId>
-    <artifactId>book2read</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>czbookjava</artifactId>
+    <version>1.0.0</version>
     <packaging>war</packaging>
 
-    <name>book2read-java</name>
+    <name>czbookjava</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
