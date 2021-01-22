@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
     
-    <!-- <cron>
+    <!--<cron>
         <url>/CrawlBook?name=圣墟</url>
         <!--<target>beta</target>-->
         <description>爬取圣墟</description>
