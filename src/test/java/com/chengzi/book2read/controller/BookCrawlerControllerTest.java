@@ -1,5 +1,4 @@
-/*
-package com.chengzi.book2read;
+package com.chengzi.book2read.controller;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -35,11 +33,8 @@ public class BookCrawlerControllerTest {
     BookCrawlerController controller;
 
     @Test
-    public void test() throws IOException, EntityNotFoundException {
-        controller.CrawlBook("圣墟");
-
-        //com.google.appengine.api.mail.dev.LocalMailService;
+    public void CrawlBook() {
+        //controller.CrawlBook("圣墟");
+        controller.meiRiYiWen();
     }
-
 }
-*/

@@ -9,14 +9,14 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * @author chengzi
  */
 @SpringBootApplication
-public class Book2readApplication extends SpringBootServletInitializer {
+public class BookApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(Book2readApplication.class);
+        return application.sources(BookApplication.class);
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(Book2readApplication.class, args);
+        SpringApplication.run(BookApplication.class, args);
     }
 }
