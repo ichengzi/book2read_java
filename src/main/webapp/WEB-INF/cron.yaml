@@ -1,12 +1,12 @@
 cron:
-- description: "爬取圣墟"
-  url: /book/crawlBook?name=%E5%9C%A3%E5%A2%9F
-  schedule: every 20 mins
+#- description: "爬取圣墟"
+#  url: /book/crawlBook?name=%E5%9C%A3%E5%A2%9F
+#  schedule: every 20 mins
 
 # - description: "爬取凡人仙界篇"
 #   url: /CrawlBook?name=%E5%87%A1%E4%BA%BA%E4%BB%99%E7%95%8C%E7%AF%87
 #   schedule: every 10 mins
 
-- description: "每日一文"
-  url: /book/meiRiYiWen
-  schedule: every day 09:00
+#- description: "每日一文"
+#  url: /book/meiRiYiWen
+#  schedule: every day 09:00
