@@ -15,8 +15,4 @@ public class BookApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(BookApplication.class);
     }
-
-    public static void main(String[] args) {
-        SpringApplication.run(BookApplication.class, args);
-    }
 }
