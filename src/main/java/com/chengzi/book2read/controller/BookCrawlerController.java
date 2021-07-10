@@ -1,11 +1,10 @@
-package com.chengzi.book2read;
+package com.chengzi.book2read.controller;
 
 //import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 
+import com.chengzi.book2read.util.Helper;
+import com.chengzi.book2read.service.MailSender;
 import com.google.appengine.api.datastore.*;
-import com.google.apphosting.api.ApiProxy;
-import com.google.auth.appengine.AppEngineCredentials;
-import com.google.auth.oauth2.GoogleCredentials;
 //import com.google.cloud.Timestamp;
 //import com.google.cloud.datastore.*;
 import org.jsoup.Jsoup;
@@ -13,14 +12,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;

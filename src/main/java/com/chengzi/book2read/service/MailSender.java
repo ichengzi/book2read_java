@@ -1,4 +1,4 @@
-package com.chengzi.book2read;
+package com.chengzi.book2read.service;
 
 import javax.mail.*;
 import javax.mail.internet.*;
