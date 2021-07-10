@@ -35,6 +35,10 @@ public class BookCrawlerControllerTest {
     @Test
     public void CrawlBook() {
         //controller.CrawlBook("圣墟");
-        controller.meiRiYiWen();
+        try {
+            controller.meiRiYiWen();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
