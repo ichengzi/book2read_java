@@ -36,6 +36,8 @@ public class BookCrawlerControllerTest {
     public void CrawlBook() {
         //controller.CrawlBook("圣墟");
         try {
+            // 借助google的控制台console部署，那里不能随意访问外网。
+            // catch住这个ex
             controller.meiRiYiWen();
         } catch (Exception e) {
             e.printStackTrace();
