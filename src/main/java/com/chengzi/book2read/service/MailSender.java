@@ -1,13 +1,19 @@
 package com.chengzi.book2read.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
-import java.util.logging.Logger;
 
+/**
+ * @author chengzi
+ */
+@Service
+@Slf4j
 public class MailSender {
-    private static final Logger log = Logger.getLogger(MailSender.class.getName());
 
     public void sendSimpleMail(String subject, String content) {
         // [START simple_example]
@@ -23,11 +29,11 @@ public class MailSender {
             msg.setText(content);
             Transport.send(msg);
         } catch (AddressException e) {
-            log.warning(e.toString());
+            log.warn(e.toString());
         } catch (MessagingException e) {
-            log.warning(e.toString());
+            log.warn(e.toString());
         } catch (UnsupportedEncodingException e) {
-            log.warning(e.toString());
+            log.warn(e.toString());
         }
         // [END simple_example]
     }
@@ -76,11 +82,11 @@ public class MailSender {
             Transport.send(msg);
 
         } catch (AddressException e) {
-            log.warning(e.toString());
+            log.warn(e.toString());
         } catch (MessagingException e) {
-            log.warning(e.toString());
+            log.warn(e.toString());
         } catch (UnsupportedEncodingException e) {
-            log.warning(e.toString());
+            log.warn(e.toString());
         }
     }
 }
