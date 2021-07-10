@@ -130,7 +130,7 @@ public class BookCrawlerController {
         String author = doc.selectFirst("#article_show > p > span").text();
         String article = doc.select("#article_show > div.article_text > p").stream()
                 .map(Element::text)
-                .collect(Collectors.joining("\r\n\r\n"));
+                .collect(Collectors.joining("\r\n"));
         int hash = (title + author).hashCode();
 
         Key key = KeyFactory.createKey("meiriyiwen", hash);
