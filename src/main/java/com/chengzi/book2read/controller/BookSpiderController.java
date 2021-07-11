@@ -3,7 +3,7 @@ package com.chengzi.book2read.controller;
 import com.chengzi.book2read.service.MailSender;
 import com.chengzi.book2read.util.Helper;
 import com.google.appengine.api.datastore.*;
-import com.google.common.base.Charsets;
+import freemarker.template.Template;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -12,15 +12,16 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-import java.nio.charset.Charset;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import javax.annotation.Resource;
+import javax.security.auth.Subject;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -29,12 +30,14 @@ import java.util.stream.Collectors;
 @RestController
 @Slf4j
 @RequestMapping("/book")
-public class BookCrawlerController {
+public class BookSpiderController {
 
     @Autowired
     MailSender mailSender;
     @Autowired
     DatastoreService datastoreService;
+    @Resource(name = "freeMarkerConfig")
+    FreeMarkerConfigurer freeMarkerConfig;
 
     @GetMapping("/CrawlBook")
     @SneakyThrows
@@ -122,16 +125,18 @@ public class BookCrawlerController {
 
     @GetMapping("/meiRiYiWen")
     @SneakyThrows
-    public String meiRiYiWen() {
+    public Object meiRiYiWen() {
+        log.info("[[title={}]], spider start:{}", "meiRiYiWen", "meiRiYiWen");
         String html = Helper.getRsp("https://meiriyiwen.com");
         Document doc = Jsoup.parse(html);
 
         String title = doc.selectFirst("#article_show > h1").text();
         String author = doc.selectFirst("#article_show > p > span").text();
-        String article = doc.select("#article_show > div.article_text > p").stream()
-                .map(Element::text)
-                .collect(Collectors.joining("\r\n"));
-        int hash = (title + author).hashCode();
+        List<String> items = doc.select("#article_show > div.article_text > p").stream()
+                .map(Element::text).collect(Collectors.toList());
+        String article = items.stream().collect(Collectors.joining("\r\n"));
+        String subject = title + " - " + author;
+        int hash = (subject).hashCode();
 
         Key key = KeyFactory.createKey("meiriyiwen", hash);
         Entity entity = null;
@@ -149,8 +154,18 @@ public class BookCrawlerController {
             entity.setProperty("article", new Text(article));
             entity.setProperty("create_time", new Date());
             datastoreService.put(entity);
-            mailSender.sendMultipartMail(title + " - " + author, article);
-            return "ok";
+            log.info("[[title={}]], spider write data store:{}", "meiRiYiWen", subject);
+            //mailSender.sendMultipartMail(title + " - " + author, article);
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("title", title);
+            model.put("author", author);
+            model.put("items", items);
+            Template template = freeMarkerConfig.getConfiguration().getTemplate("meiArticle.ftl");
+            String content = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+            mailSender.sendMultipartMailV2(subject, content);
+            log.info("[[title={}]], spider send mail:{}", "meiRiYiWen", subject);
+            return model;
         }
     }
 }

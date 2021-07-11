@@ -1,6 +1,5 @@
 package com.chengzi.book2read.controller;
 
-import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import org.junit.After;
@@ -14,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BookCrawlerControllerTest {
+public class BookSpiderControllerTest {
 
     private final LocalServiceTestHelper helper =
             new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
@@ -30,7 +29,7 @@ public class BookCrawlerControllerTest {
     }
 
     @Autowired
-    BookCrawlerController controller;
+    BookSpiderController controller;
 
     @Test
     public void CrawlBook() {

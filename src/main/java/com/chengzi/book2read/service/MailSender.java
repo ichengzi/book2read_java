@@ -89,4 +89,34 @@ public class MailSender {
             log.warn(e.toString());
         }
     }
+
+    /**
+     * send mail v2
+     *
+     * @param subject    mail subject
+     * @param htmlString html string
+     */
+    public void sendMultipartMailV2(String subject, String htmlString) {
+        log.info("[[title={}]],subject:{}, start send mail", "sendMultipartMailV2", subject);
+        try {
+            Session session = Session.getDefaultInstance(new Properties(), null);
+            Message msg = new MimeMessage(session);
+            InternetAddress from = new InternetAddress("chengzi12130+spider@gmail.com", "daily article spider");
+            InternetAddress to = new InternetAddress("chengzi12130@gmail.com", "daily favor article");
+            msg.setFrom(from);
+            msg.addRecipient(Message.RecipientType.TO, to);
+            msg.setSubject(subject);
+            msg.setText(subject);
+
+            Multipart mimeMultipart = new MimeMultipart();
+            MimeBodyPart htmlPart = new MimeBodyPart();
+            htmlPart.setContent(htmlString, "text/html");
+            mimeMultipart.addBodyPart(htmlPart);
+
+            msg.setContent(mimeMultipart);
+            Transport.send(msg);
+        } catch (Exception e) {
+            log.error("[[title={}]],subject:{}, send mail error", "sendMultipartMailV2", subject, e);
+        }
+    }
 }
