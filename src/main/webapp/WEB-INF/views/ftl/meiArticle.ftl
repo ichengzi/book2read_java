@@ -9,7 +9,7 @@
         width: 700px;
         z-index: 0;
     }
-    #article_show h3{
+    #article_show h1{
         color: #000000;
         font-weight:normal;
         letter-spacing: 4px;
@@ -25,7 +25,7 @@
     }
     #article_show p {
         color: #000;
-        font-size: 16px;
+        font-size: 24px;
         font-weight: normal;
         line-height: 30px;
         margin-bottom: 30px;
@@ -34,7 +34,7 @@
 </style>
 <body>
 <div id="article_show">
-    <h3>${title}</h3>
+    <h1>${title}</h1>
     <p class="article_author"><span>${author}</span></p>
     <div class="article_text">
         <#list items as item>
