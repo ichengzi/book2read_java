@@ -41,5 +41,5 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
       
-      - name: user cloud cli
+      - name: use cloud cli
         run: gcloud info
