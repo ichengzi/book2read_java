@@ -164,7 +164,9 @@ public class BookSpiderController {
             Template template = freeMarkerConfig.getConfiguration().getTemplate("meiArticle.ftl");
             String content = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
             mailSender.sendMultipartMailV2("chengzi12130+spider@gmail.com", "chengzi12130@gmail.com", subject, content);
-            mailSender.sendMultipartMailV2("chengzi12130@gmail.com", "me@onenote.com", subject + "@每日一文", content);
+            // 邮送域：m3kw2wvrgufz5godrsrytgd7.apphosting.bounces.google.com
+            // 这个 邮送域 导致 onenote 无法识别
+            // mailSender.sendMultipartMailV2("chengzi12130@gmail.com", "me@onenote.com", subject + "@每日一文", content);
             log.info("[[title={}]], spider send mail:{}", "meiRiYiWen", subject);
             return model;
         }
