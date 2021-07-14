@@ -96,13 +96,13 @@ public class MailSender {
      * @param subject    mail subject
      * @param htmlString html string
      */
-    public void sendMultipartMailV2(String email,String subject, String htmlString) {
+    public void sendMultipartMailV2(String fromMail, String toEmail, String subject, String htmlString) {
         log.info("[[title={}]],subject:{}, start send mail", "sendMultipartMailV2", subject);
         try {
             Session session = Session.getDefaultInstance(new Properties(), null);
             Message msg = new MimeMessage(session);
-            InternetAddress from = new InternetAddress("chengzi12130+spider@gmail.com", "daily article spider");
-            InternetAddress to = new InternetAddress(email, "daily favor article");
+            InternetAddress from = new InternetAddress(fromMail, "daily article spider");
+            InternetAddress to = new InternetAddress(toEmail, "daily favor article");
             msg.setFrom(from);
             msg.addRecipient(Message.RecipientType.TO, to);
             msg.setSubject(subject);
