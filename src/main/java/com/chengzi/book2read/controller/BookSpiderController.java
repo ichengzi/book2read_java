@@ -163,7 +163,8 @@ public class BookSpiderController {
             model.put("items", items);
             Template template = freeMarkerConfig.getConfiguration().getTemplate("meiArticle.ftl");
             String content = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
-            mailSender.sendMultipartMailV2(subject, content);
+            mailSender.sendMultipartMailV2("chengzi12130@gmail.com", subject, content);
+            mailSender.sendMultipartMailV2("me@onenote.com", subject + "@每日一文", content);
             log.info("[[title={}]], spider send mail:{}", "meiRiYiWen", subject);
             return model;
         }
