@@ -39,7 +39,7 @@
 <div id="article_show">
     <h1 style="text-align: center;color: #000000;letter-spacing: 4px;margin: 0 0 30px;">${title}</h1>
     <p style="color: #999999; margin: 40px 0 50px; text-align: center;"><span>${author}</span></p>
-    <div style="color: #000;font-size: 16px;font-weight: normal;line-height: 30px;margin-bottom: 30px;text-align: justify;">
+    <div style="color: #000;font-size: 18px;font-weight: normal;line-height: 30px;margin-bottom: 30px;text-align: justify;">
         <#list items as item>
             <p>${item}</p>
         </#list>
