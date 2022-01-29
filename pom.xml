@@ -91,11 +91,13 @@
             <version>1.2.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
         <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
+            <version>1.2.5</version>
         </dependency>
+
 
         <!--http client-->
         <dependency>
@@ -122,6 +124,7 @@
             <artifactId>jquery</artifactId>
             <version>3.1.1</version>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/com.google.appengine/appengine-testing -->
         <dependency>
