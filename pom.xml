@@ -200,7 +200,7 @@
                 <version>2.2.0</version>
                 <configuration>
                     <deploy.projectId>czbookjava</deploy.projectId>
-                    <deploy.version>2022_01_30</deploy.version>
+                    <deploy.version>2022-01-30</deploy.version>
                     <!--  May only contain lowercase letters, digits, and hyphens. -->
                     <!--  Must begin and end with a letter or digit.-->
                 </configuration>
