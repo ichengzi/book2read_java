@@ -45,16 +45,14 @@ public class BookSpiderController {
 
         String title = doc.selectFirst("#article_show > h1").text();
         String author = doc.selectFirst("#article_show > p > span").text();
+        String subject = title + " - " + author;
         List<String> items = doc.select("#article_show > div.article_text > p").stream()
                 .map(Element::text).collect(Collectors.toList());
 
-        String subject = title + " - " + author;
-
         Key key = KeyFactory.createKey("meiriyiwen", subject.hashCode());
-        Entity entity = datastoreService.get(key);
-        Assert.isNull(entity, subject + " is already in database");
+        Assert.isNull(queryFromGoogleDataStore(key), subject + " is already exist in database");
 
-        entity = new Entity(key);
+        Entity entity = new Entity(key);
         entity.setProperty("title", title);
         entity.setProperty("author", author);
         entity.setProperty("article", new Text(String.join("\r\n", items)));
@@ -77,5 +75,16 @@ public class BookSpiderController {
         // 邮送域：m3kw2wvrgufz5godrsrytgd7.apphosting.bounces.google.com
         // 这个 邮送域 导致 onenote 无法识别, me@onenote.com 无法把文章添加到onenote
         // mailSender.sendMultipartMailV2("chengzi12130@gmail.com", "me@onenote.com", subject + "@每日一文", content);
+    }
+
+    /**
+     * @return query data with key. if not exist, return null.
+     */
+    private Entity queryFromGoogleDataStore(Key key) {
+        try {
+            return datastoreService.get(key);
+        } catch (EntityNotFoundException ignored) {
+            return null;
+        }
     }
 }
