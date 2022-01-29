@@ -201,6 +201,8 @@
                 <configuration>
                     <deploy.projectId>czbookjava</deploy.projectId>
                     <deploy.version>2022_01_30</deploy.version>
+                    <!--  May only contain lowercase letters, digits, and hyphens. -->
+                    <!--  Must begin and end with a letter or digit.-->
                 </configuration>
             </plugin>
         </plugins>
